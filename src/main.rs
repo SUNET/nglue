@@ -45,7 +45,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // This is reading our configuration file
     // And then we can override with NGLUE_ variables, like NGLUE_DEBUG=1
     let settings = Config::builder()
-        .add_source(config::File::with_name("nglue"))
+        //.add_source(config::File::with_name("nglue"))
         .add_source(config::Environment::with_prefix("NGLUE"))
         .build()
         .unwrap();
