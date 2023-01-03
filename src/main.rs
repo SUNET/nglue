@@ -1,6 +1,5 @@
 use clap::Parser;
 use config::Config;
-use reqwest::Client;
 use serde::Serialize;
 use serde_json::json;
 use std::collections::HashMap;
@@ -37,8 +36,7 @@ struct Args {
     validate: bool,
 }
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::parse();
     let data = json!(args);
 
@@ -53,10 +51,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .try_deserialize::<HashMap<String, String>>()
         .unwrap();
     // Now let us send in the data
-    let _response = Client::new()
-        .post(conf.get("server").unwrap()) // The URL to POST to
-        .json(&data) // The data we are sending
-        .send()
-        .await?;
+    let _response = ureq::post(conf.get("server").expect("NGLUE_SERVER not set")) // The URL to POST to
+        .send_json(&data)?; // The data we are sending
     Ok(())
 }
