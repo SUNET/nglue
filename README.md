@@ -7,12 +7,19 @@ Small glue code to pass data from Nagios to a web API.
 
 ## Installation
 
-Install Rust from [rustup](https://rustup.rs).
+First build the Docker container for building.
 
 ```
-cargo bulid --release
-sudo cp ./target/release/nglue /usr/local/bin/
+docker build -t nglue-builder .
 ```
+
+Then run the container once with the source directory mounted as `/io`.
+
+```
+docker run --rm -v $PWD:/io:Z nglue-builder
+```
+
+Now we have the binary at `./target/release/nglue`, copy it in the same container of Nagios.
 
 
 ## Usage

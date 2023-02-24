@@ -1,6 +1,6 @@
 [package]
 name = "nglue"
-version = "0.0.2"
+version = "0.1.0"
 edition = "2021"
 authors = ["Kushal Das <kushal@sunet.se>"]
 description = "Glue tool to pass nagios data."
