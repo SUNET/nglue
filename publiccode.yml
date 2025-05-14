@@ -21,6 +21,9 @@ description:
     longDescription: >
       This is a commandline tool for upload data
       automatically to ticketing system.
+    featrues:
+      - JSON
+      - HTTP POST request
 
 legal:
   license: MIT
