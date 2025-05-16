@@ -21,7 +21,7 @@ description:
     longDescription: >
       This is a commandline tool for upload data
       automatically to ticketing system.
-    featrues:
+    features:
       - JSON
       - HTTP POST request
 
