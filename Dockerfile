@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 RUN apt update && apt install build-essential curl -y
-ENV RUST_VERSION 1.67.1
+ENV RUST_VERSION 1.94.1
 
 # Install Rust for building cryptography
 RUN     curl --proto '=https' --tlsv1.2 -OO -sSf https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init{,.sha256}
