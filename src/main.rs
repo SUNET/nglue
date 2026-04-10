@@ -86,10 +86,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let flow = validate_flow(&cli)?;
-    
+
     if cli.validate {
         println!("✓ Validation passed: {:?}", flow);
-        return Ok(());
     }
 
     // This is reading our configuration file
@@ -135,7 +134,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "notification": cli.notification.as_ref().unwrap(),
                     "attempt_number": cli.attempt_number.unwrap(),
                     "max_attempts": cli.max_attempts.unwrap(),
-                    "debug": cli.debug
+                    "debug": cli.debug,
+                    "validate" : cli.validate
                 }))?
         }
     };
