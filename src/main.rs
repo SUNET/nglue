@@ -27,13 +27,9 @@ struct Cli {
     #[arg(long)]
     lastservicestateid: Option<u8>,
     #[arg(long)]
-    notification: Option<String>,
-    #[arg(long)]
     servicestate: Option<String>,
-    #[arg(long = "attempt_number")]
-    attempt_number: Option<u8>,
-    #[arg(long = "max_attempts")]
-    max_attempts: Option<u8>,
+    #[arg(long)]
+    servicestatetype: Option<String>,
     #[arg(long, conflicts_with_all = ["test_api", "hostname"])]
     sync: bool,
     #[arg(long, conflicts_with_all = ["sync", "hostname"])]
@@ -57,12 +53,10 @@ fn validate_flow(cli: &Cli) -> Result<Flow, String> {
             ("description", cli.description.is_none()),
             ("servicestateid", cli.servicestateid.is_none()),
             ("servicestate", cli.servicestate.is_none()),
+            ("servicestatetype", cli.servicestatetype.is_none()),
             ("lastservicestateid", cli.lastservicestateid.is_none()),
             ("lastproblemid", cli.lastproblemid.is_none()),
             ("problemid", cli.problemid.is_none()),
-            ("notification", cli.notification.is_none()),
-            ("attempt_number", cli.attempt_number.is_none()),
-            ("max_attempts", cli.max_attempts.is_none()),
         ]
         .into_iter()
         .filter_map(|(name, is_missing)| if is_missing { Some(name) } else { None })
@@ -80,7 +74,7 @@ fn validate_flow(cli: &Cli) -> Result<Flow, String> {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
-    
+
     if cli.debug {
         println!("{:#?}", cli);
     }
@@ -105,7 +99,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let server = conf.get("server")
         .ok_or("NGLUE_SERVER required")?
         .to_string();
-    
+
     if cli.debug {
         println!("Server: {}", server);
     }
@@ -128,12 +122,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "description": cli.description.as_ref().unwrap(),
                     "servicestateid": cli.servicestateid.unwrap(),
                     "servicestate": cli.servicestate.unwrap(),
+                    "servicestatetype": cli.servicestatetype.unwrap(),
                     "lastservicestateid": cli.lastservicestateid.unwrap(),
                     "lastproblemid": cli.lastproblemid.as_ref().unwrap_or(&"0".to_string()),
                     "problemid": cli.problemid.as_ref().unwrap_or(&"0".to_string()),
-                    "notification": cli.notification.as_ref().unwrap(),
-                    "attempt_number": cli.attempt_number.unwrap(),
-                    "max_attempts": cli.max_attempts.unwrap(),
                     "debug": cli.debug,
                     "validate" : cli.validate
                 }))?
