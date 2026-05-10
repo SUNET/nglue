@@ -1,4 +1,4 @@
-publiccodeYmlVersion: "0.4"
+publiccodeYmlVersion: "0"
 
 name: nglue
 url: "https://github.com/SUNET/nglue"
@@ -19,8 +19,11 @@ description:
       to ticketing system.
 
     longDescription: >
-      This is a commandline tool for upload data
-      automatically to ticketing system.
+      Glue code that forwards Nagios service and host state notifications
+      to a web API. It is invoked by Nagios as a notification command and
+      posts the alert details (status, hostname, description, attempt
+      number) to a configured HTTP endpoint as JSON, so the events can be
+      ingested by an external ticketing system.
     features:
       - JSON
       - HTTP POST request
